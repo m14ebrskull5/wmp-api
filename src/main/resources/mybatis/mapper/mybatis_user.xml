@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wmp.api.sys.dao.UserDao">
+	<resultMap type="com.wmp.api.sys.entity.User" id="UserMap">
+		<id property="id" column="id"/>
+		<result property="openid" column="openid"/>
+		<result property="userpic" column="userpic"/>
+		<result property="name" column="name"/>
+		<result property="company" column="company"/>
+		<result property="job" column="job"/>
+		<result property="mophone1" column="mophone1"/>
+		<result property="mophone2" column="mophone2"/>
+		<result property="mophone3" column="mophone3"/>
+		<result property="phone1" column="phone1"/>
+		<result property="phone2" column="phone2"/>
+		<result property="phone3" column="phone3"/>
+		<result property="addr1" column="addr1"/>
+		<result property="addr2" column="addr2"/>
+		<result property="addr3" column="addr3"/>
+		<result property="email1" column="email1"/>
+		<result property="email2" column="email2"/>
+		<result property="website" column="website"/>
+		<result property="wechat" column="wechat"/>
+		<result property="fax" column="fax"/>
+		<result property="remark" column="remark"/>
+		<result property="invoice" column="invoice"/>
+		<result property="intro" column="intro"/>
+		<result property="pinyin" column="pinyin"/>
+		<result property="addtimeS" column="addtime_s"/>
+		<result property="order" column="order"/>
+		<result property="formtoken" column="formtoken"/>
+	</resultMap>
+
+	<!--根据主键获取对象-->
+	<select id="get" parameterType="com.wmp.api.sys.entity.User" resultMap="UserMap">
+		SELECT id,openid,userpic,name,company,job,mophone1,mophone2,mophone3,phone1,phone2,phone3,addr1,addr2,addr3,email1,email2,website,wechat,fax,remark,invoice,intro,pinyin,addtime_s,`order`,formtoken FROM wmp_users 
+		WHERE id=#{id}
+	</select>
+	
+	<!-- 根据父节点来查询最大的节点的值 -->
+	<select id="findById" parameterType="java.lang.Integer" resultType="com.wmp.api.sys.entity.User">
+		SELECT id,openid,userpic,name,company,job,mophone1,mophone2,mophone3,phone1,phone2,phone3,addr1,addr2,addr3,email1,email2,website,wechat,fax,remark,invoice,intro,pinyin,addtime_s,`order`,formtoken FROM wmp_users 
+		WHERE id=#{id}
+	</select>
+
+	<!--保存-->
+	<insert id="save" parameterType="com.wmp.api.sys.entity.User" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO wmp_users(openid,userpic,name,company,job,mophone1,mophone2,mophone3,phone1,phone2,phone3,addr1,addr2,addr3,email1,email2,website,wechat,fax,remark,invoice,intro,pinyin,addtime_s,order,formtoken)
+		VALUES(#{openid},#{userpic},#{name},#{company},#{job},#{mophone1},#{mophone2},#{mophone3},#{phone1},#{phone2},#{phone3},#{addr1},#{addr2},#{addr3},#{email1},#{email2},#{website},#{wechat},#{fax},#{remark},#{invoice},#{intro},#{pinyin},#{addtimeS},#{order},#{formtoken})
+	</insert>
+
+	<!--修改-->
+	<update id="update" parameterType="com.wmp.api.sys.entity.User">
+		UPDATE wmp_users SET openid=#{openid},userpic=#{userpic},name=#{name},company=#{company},job=#{job},mophone1=#{mophone1},mophone2=#{mophone2},mophone3=#{mophone3},phone1=#{phone1},phone2=#{phone2},phone3=#{phone3},addr1=#{addr1},addr2=#{addr2},addr3=#{addr3},email1=#{email1},email2=#{email2},website=#{website},wechat=#{wechat},fax=#{fax},remark=#{remark},invoice=#{invoice},intro=#{intro},pinyin=#{pinyin},addtime_s=#{addtimeS},order=#{order},formtoken=#{formtoken}
+		WHERE id=#{id}
+	</update>
+
+	<!--删除-->
+	<delete id="delete" parameterType="com.wmp.api.sys.entity.User">
+		 DELETE FROM wmp_users WHERE id=#{id}
+	</delete>
+
+	<!--分页查询-->
+	<select id="findByPage" parameterType="com.wmp.api.sys.entity.QueryUser" resultMap="UserMap">
+		SELECT id,openid,userpic,name,company,job,mophone1,mophone2,mophone3,phone1,phone2,phone3,addr1,addr2,addr3,email1,email2,website,wechat,fax,remark,invoice,intro,pinyin,addtime_s,order,formtoken FROM wmp_users
+		WHERE 1=1
+		<if test="openid!=null and openid!='' "  >
+		AND openid=#{openid}
+		</if>
+		<if test="userpic!=null and userpic!='' "  >
+		AND userpic=#{userpic}
+		</if>
+		<if test="name!=null and name!='' "  >
+		AND name=#{name}
+		</if>
+		<if test="company!=null and company!='' "  >
+		AND company=#{company}
+		</if>
+		<if test="job!=null and job!='' "  >
+		AND job=#{job}
+		</if>
+		<if test="mophone1!=null and mophone1!='' "  >
+		AND mophone1=#{mophone1}
+		</if>
+		<if test="mophone2!=null and mophone2!='' "  >
+		AND mophone2=#{mophone2}
+		</if>
+		<if test="mophone3!=null and mophone3!='' "  >
+		AND mophone3=#{mophone3}
+		</if>
+		<if test="phone1!=null and phone1!='' "  >
+		AND phone1=#{phone1}
+		</if>
+		<if test="phone2!=null and phone2!='' "  >
+		AND phone2=#{phone2}
+		</if>
+		<if test="phone3!=null and phone3!='' "  >
+		AND phone3=#{phone3}
+		</if>
+		<if test="addr1!=null and addr1!='' "  >
+		AND addr1=#{addr1}
+		</if>
+		<if test="addr2!=null and addr2!='' "  >
+		AND addr2=#{addr2}
+		</if>
+		<if test="addr3!=null and addr3!='' "  >
+		AND addr3=#{addr3}
+		</if>
+		<if test="email1!=null and email1!='' "  >
+		AND email1=#{email1}
+		</if>
+		<if test="email2!=null and email2!='' "  >
+		AND email2=#{email2}
+		</if>
+		<if test="website!=null and website!='' "  >
+		AND website=#{website}
+		</if>
+		<if test="wechat!=null and wechat!='' "  >
+		AND wechat=#{wechat}
+		</if>
+		<if test="fax!=null and fax!='' "  >
+		AND fax=#{fax}
+		</if>
+		<if test="remark!=null and remark!='' "  >
+		AND remark=#{remark}
+		</if>
+		<if test="invoice!=null and invoice!='' "  >
+		AND invoice=#{invoice}
+		</if>
+		<if test="intro!=null and intro!='' "  >
+		AND intro=#{intro}
+		</if>
+		<if test="pinyin!=null and pinyin!='' "  >
+		AND pinyin=#{pinyin}
+		</if>
+		<if test="addtimeS!=null and addtimeS!='' "  >
+		AND addtime_s=#{addtimeS}
+		</if>
+		<if test="order!=null and order!='' "  >
+		AND order=#{order}
+		</if>
+		<if test="formtoken!=null and formtoken!='' "  >
+		AND formtoken=#{formtoken}
+		</if>
+		<if test="sort!= null">
+		order by ${sort} ${order}
+		</if>
+		limit #{offset},#{limit}
+	</select>
+
+	<!--统计-->
+	<select id="count" parameterType="com.wmp.api.sys.entity.QueryUser" resultType="int">
+		SELECT count(*) FROM wmp_users
+		WHERE 1=1
+		<if test="openid!=null and openid!='' ">
+		AND openid=#{openid}
+		</if>
+		<if test="userpic!=null and userpic!='' ">
+		AND userpic=#{userpic}
+		</if>
+		<if test="name!=null and name!='' ">
+		AND name=#{name}
+		</if>
+		<if test="company!=null and company!='' ">
+		AND company=#{company}
+		</if>
+		<if test="job!=null and job!='' ">
+		AND job=#{job}
+		</if>
+		<if test="mophone1!=null and mophone1!='' ">
+		AND mophone1=#{mophone1}
+		</if>
+		<if test="mophone2!=null and mophone2!='' ">
+		AND mophone2=#{mophone2}
+		</if>
+		<if test="mophone3!=null and mophone3!='' ">
+		AND mophone3=#{mophone3}
+		</if>
+		<if test="phone1!=null and phone1!='' ">
+		AND phone1=#{phone1}
+		</if>
+		<if test="phone2!=null and phone2!='' ">
+		AND phone2=#{phone2}
+		</if>
+		<if test="phone3!=null and phone3!='' ">
+		AND phone3=#{phone3}
+		</if>
+		<if test="addr1!=null and addr1!='' ">
+		AND addr1=#{addr1}
+		</if>
+		<if test="addr2!=null and addr2!='' ">
+		AND addr2=#{addr2}
+		</if>
+		<if test="addr3!=null and addr3!='' ">
+		AND addr3=#{addr3}
+		</if>
+		<if test="email1!=null and email1!='' ">
+		AND email1=#{email1}
+		</if>
+		<if test="email2!=null and email2!='' ">
+		AND email2=#{email2}
+		</if>
+		<if test="website!=null and website!='' ">
+		AND website=#{website}
+		</if>
+		<if test="wechat!=null and wechat!='' ">
+		AND wechat=#{wechat}
+		</if>
+		<if test="fax!=null and fax!='' ">
+		AND fax=#{fax}
+		</if>
+		<if test="remark!=null and remark!='' ">
+		AND remark=#{remark}
+		</if>
+		<if test="invoice!=null and invoice!='' ">
+		AND invoice=#{invoice}
+		</if>
+		<if test="intro!=null and intro!='' ">
+		AND intro=#{intro}
+		</if>
+		<if test="pinyin!=null and pinyin!='' ">
+		AND pinyin=#{pinyin}
+		</if>
+		<if test="addtimeS!=null and addtimeS!='' ">
+		AND addtime_s=#{addtimeS}
+		</if>
+		<if test="order!=null and order!='' ">
+		AND order=#{order}
+		</if>
+		<if test="formtoken!=null and formtoken!='' ">
+		AND formtoken=#{formtoken}
+		</if>
+	</select>
+
+	<!--查询-->
+	<select id="query" parameterType="com.wmp.api.sys.entity.QueryUser" resultMap="UserMap">
+		SELECT id,openid,userpic,name,company,job,mophone1,mophone2,mophone3,phone1,phone2,phone3,addr1,addr2,addr3,email1,email2,website,wechat,fax,remark,invoice,intro,pinyin,addtime_s,order,formtoken FROM wmp_users
+		WHERE 1=1
+		<if test="openid!=null and openid!='' ">
+		AND openid=#{openid}
+		</if>
+		<if test="userpic!=null and userpic!='' ">
+		AND userpic=#{userpic}
+		</if>
+		<if test="name!=null and name!='' ">
+		AND name=#{name}
+		</if>
+		<if test="company!=null and company!='' ">
+		AND company=#{company}
+		</if>
+		<if test="job!=null and job!='' ">
+		AND job=#{job}
+		</if>
+		<if test="mophone1!=null and mophone1!='' ">
+		AND mophone1=#{mophone1}
+		</if>
+		<if test="mophone2!=null and mophone2!='' ">
+		AND mophone2=#{mophone2}
+		</if>
+		<if test="mophone3!=null and mophone3!='' ">
+		AND mophone3=#{mophone3}
+		</if>
+		<if test="phone1!=null and phone1!='' ">
+		AND phone1=#{phone1}
+		</if>
+		<if test="phone2!=null and phone2!='' ">
+		AND phone2=#{phone2}
+		</if>
+		<if test="phone3!=null and phone3!='' ">
+		AND phone3=#{phone3}
+		</if>
+		<if test="addr1!=null and addr1!='' ">
+		AND addr1=#{addr1}
+		</if>
+		<if test="addr2!=null and addr2!='' ">
+		AND addr2=#{addr2}
+		</if>
+		<if test="addr3!=null and addr3!='' ">
+		AND addr3=#{addr3}
+		</if>
+		<if test="email1!=null and email1!='' ">
+		AND email1=#{email1}
+		</if>
+		<if test="email2!=null and email2!='' ">
+		AND email2=#{email2}
+		</if>
+		<if test="website!=null and website!='' ">
+		AND website=#{website}
+		</if>
+		<if test="wechat!=null and wechat!='' ">
+		AND wechat=#{wechat}
+		</if>
+		<if test="fax!=null and fax!='' ">
+		AND fax=#{fax}
+		</if>
+		<if test="remark!=null and remark!='' ">
+		AND remark=#{remark}
+		</if>
+		<if test="invoice!=null and invoice!='' ">
+		AND invoice=#{invoice}
+		</if>
+		<if test="intro!=null and intro!='' ">
+		AND intro=#{intro}
+		</if>
+		<if test="pinyin!=null and pinyin!='' ">
+		AND pinyin=#{pinyin}
+		</if>
+		<if test="addtimeS!=null and addtimeS!='' ">
+		AND addtime_s=#{addtimeS}
+		</if>
+		<if test="order!=null and order!='' ">
+		AND order=#{order}
+		</if>
+		<if test="formtoken!=null and formtoken!='' ">
+		AND formtoken=#{formtoken}
+		</if>
+		<if test="sort!= null">
+		order by ${sort} ${order}
+		</if>
+	</select>
+</mapper>
